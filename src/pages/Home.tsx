@@ -1,10 +1,10 @@
 import React from "react";
-import ChatLoading from "../components/ChatLoading";
+import SignUp from "../components/authentication/SignUp";
 const Home: React.FC = () => {
   return (
     <div>
       Home Page
-      <ChatLoading />
+      <SignUp />
     </div>
   );
 };
