@@ -1,7 +1,39 @@
 import React from "react";
+import ChatBox from "../components/ChatBox";
+import ChatList from "../components/ChatList";
+import NavBar from "../components/NavBar";
+import { Grid, Container } from "@mui/material";
 
 const Chat: React.FC = () => {
-  return <div>Chat PageS</div>;
+  return (
+    <div>
+      <NavBar />
+      <Container maxWidth="xl">
+        <Grid container gap={2}>
+          <Grid
+            sx={{
+              overflowY: "auto",
+              height: "100vh",
+            }}
+            item
+            xs={3}
+          >
+            <ChatList />
+          </Grid>
+          <Grid
+            sx={{
+              overflowY: "auto",
+              height: "100vh",
+            }}
+            item
+            xs={7}
+          >
+            <ChatBox />
+          </Grid>
+        </Grid>
+      </Container>
+    </div>
+  );
 };
 
 export default Chat;
