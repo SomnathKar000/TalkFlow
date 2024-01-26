@@ -1,13 +1,12 @@
 import React from "react";
 import ChatBox from "../components/ChatBox";
 import ChatList from "../components/ChatList";
-import NavBar from "../components/NavBar";
+
 import { Grid, Container } from "@mui/material";
 
 const Chat: React.FC = () => {
   return (
     <div>
-      <NavBar />
       <Container maxWidth="xl">
         <Grid container gap={2}>
           <Grid

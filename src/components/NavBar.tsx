@@ -8,13 +8,12 @@ import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const pages = ["home", "Chats"];
+const pages = [["Chats", "/chats"]];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const NavBar: React.FC = () => {
@@ -93,8 +92,15 @@ const NavBar: React.FC = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page[0]} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">
+                    <Link
+                      style={{ textDecoration: "none", color: "inherit" }}
+                      to={page[1]}
+                    >
+                      {page[0]}
+                    </Link>
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -118,15 +124,24 @@ const NavBar: React.FC = () => {
           >
             LOGO
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          <Box
+            sx={{ flexGrow: 1, gap: 2, display: { xs: "none", md: "flex" } }}
+          >
             {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
+              // <Button
+              //   key={page}
+              //   onClick={handleCloseNavMenu}
+              //   sx={{ my: 2, color: "white", display: "block" }}
+              // >
+              //   {page}
+              // </Button>
+              <Link
+                key={page[0]}
+                style={{ textDecoration: "none", color: "inherit" }}
+                to={page[1]}
               >
-                {page}
-              </Button>
+                {page[0]}
+              </Link>
             ))}
           </Box>
 
