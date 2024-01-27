@@ -1,17 +1,25 @@
 import React from "react";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
+import { useSelector, useDispatch } from "react-redux";
+import { closeAlert } from "../redux/actions/alertActions";
+import { RootReducer, AppDispatch } from "../redux/store";
 
 const AlertComponent: React.FC = () => {
-  const [open, setOpen] = React.useState(true);
+  const dispatch = useDispatch<AppDispatch>();
+  const { open, type, message } = useSelector(
+    (state: RootReducer) => state.alert
+  );
   const handleClose = (_?: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === "clickaway") return;
-    setOpen(false);
+    dispatch(closeAlert());
   };
   return (
     <div>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose}>This is an alert</Alert>
+        <Alert security={type} onClose={handleClose}>
+          {message}
+        </Alert>
       </Snackbar>
     </div>
   );

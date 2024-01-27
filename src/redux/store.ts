@@ -9,4 +9,5 @@ const rootReducer = combineReducers({
   alert: alertReducer,
 });
 
+export type AppDispatch = typeof store.dispatch;
 export const store = createStore(rootReducer);
