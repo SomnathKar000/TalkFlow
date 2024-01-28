@@ -1,14 +1,37 @@
 import React from "react";
 import { Box, TextField, Typography, FormControl, Link } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-
+import { dispatch } from "../../redux/store";
+import { openAlert } from "../../redux/actions/alertActions";
+import { validate } from "email-validator";
 interface Props {
   switchPage: () => void;
 }
 
 const SignUp: React.FC<Props> = ({ switchPage }) => {
+  const [name, setName] = React.useState<string>("");
+  const [email, setEmail] = React.useState<string>("");
+  const [password, setPassword] = React.useState<string>("");
+  const [confirmPassword, setConfirmPassword] = React.useState<string>("");
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setName(name.trim());
+    setEmail(email.trim());
+    setPassword(password.trim());
+    setConfirmPassword(confirmPassword.trim());
+    if (name.length < 4) {
+      dispatch(openAlert("info", "Enter a valid name"));
+    }
+    if (!validate(email)) {
+      dispatch(openAlert("info", "Enter a valid email"));
+    }
+    if (password.length < 5) {
+      dispatch(openAlert("info", "Enter a valid password"));
+    }
+    if (password !== confirmPassword) {
+      dispatch(openAlert("info", "Passwords do not match"));
+    }
+    console.log(name, email, password, confirmPassword);
   };
 
   return (
@@ -32,17 +55,43 @@ const SignUp: React.FC<Props> = ({ switchPage }) => {
         <Typography align="center" variant="h3">
           SignUp
         </Typography>
-        <TextField required label="Name" />
-        <TextField required type="email" label="Email" />
-        <TextField required label="Password" />
-        <TextField required label="Confirm Password" type="password" />
+        <TextField
+          required
+          label="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <TextField
+          required
+          type="email"
+          label="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <TextField
+          required
+          label="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <TextField
+          required
+          label="Confirm Password"
+          type="password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
         <LoadingButton type="submit" size="large" variant="contained">
           Submit
         </LoadingButton>
         <Typography textAlign="center" variant="subtitle1" gutterBottom>
-          {" "}
           ALREADY HAVE AN ACOUNT{" "}
-          <Link component={"button"} variant="subtitle1" onClick={switchPage}>
+          <Link
+            component={"button"}
+            sx={{ textDecoration: "none" }}
+            variant="subtitle1"
+            onClick={switchPage}
+          >
             Login
           </Link>
         </Typography>

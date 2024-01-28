@@ -1,13 +1,28 @@
 import React from "react";
 import { Box, FormControl, TextField, Link, Typography } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
+import { dispatch } from "../../redux/store";
+import { openAlert } from "../../redux/actions/alertActions";
+import { validate } from "email-validator";
+
 interface Props {
   switchPage: () => void;
 }
 
 const Login: React.FC<Props> = ({ switchPage }) => {
+  const [email, setEmail] = React.useState<string>("");
+  const [password, setPassword] = React.useState<string>("");
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setEmail(email.trim());
+    setPassword(password.trim());
+    if (!validate(email)) {
+      dispatch(openAlert("info", "Enter a valid email"));
+    }
+    if (password.length < 5) {
+      dispatch(openAlert("info", "Enter a valid password"));
+    }
+    console.log(email, password);
   };
   return (
     <Box>
@@ -29,14 +44,30 @@ const Login: React.FC<Props> = ({ switchPage }) => {
         <Typography align="center" variant="h3">
           Login
         </Typography>
-        <TextField required type="email" label="Email" />
-        <TextField required label="Password" />
+        <TextField
+          required
+          type="email"
+          label="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <TextField
+          required
+          label="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
         <LoadingButton variant="contained" type="submit" size="large">
           Login
         </LoadingButton>
         <Typography textAlign="center" variant="subtitle1" gutterBottom>
           DON'T HAVE AN ACCOUNT?{" "}
-          <Link component={"button"} variant="subtitle1" onClick={switchPage}>
+          <Link
+            component={"button"}
+            sx={{ textDecoration: "none" }}
+            variant="subtitle1"
+            onClick={switchPage}
+          >
             Register
           </Link>
         </Typography>
