@@ -1,4 +1,4 @@
-const host = "https://talk-flow-backend.vercel.app/api/v1";
+import { host } from "../constants/backend";
 
 export const getOrPostUserApi = host;
 export const loginUserApi = host + "/login";
