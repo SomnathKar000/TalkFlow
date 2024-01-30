@@ -1,7 +1,7 @@
 import {
   START_LOADING,
   END_LOADING,
-// LOG_OUT,
+  LOG_OUT,
   SET_USER,
   UserActionTypes,
 } from "../actions/userActions";
@@ -16,16 +16,16 @@ export interface UserState {
   isAuthenticated: boolean;
 }
 
-const initialState: UserState = {
+export const initialUserState: UserState = {
   user: null,
   loading: false,
   isAuthenticated: false,
 };
 
 export const userReducer = (
-  state: UserState = initialState,
+  state = initialUserState,
   action: UserActionTypes
-) => {
+): UserState => {
   if (action.type === START_LOADING) {
     return {
       ...state,
@@ -41,5 +41,7 @@ export const userReducer = (
       ...state,
       user: action.payload.user,
     };
+  } else if (action.type === LOG_OUT) {
+    return { ...state, user: null };
   } else return state;
 };

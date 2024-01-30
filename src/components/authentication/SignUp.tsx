@@ -4,6 +4,8 @@ import { LoadingButton } from "@mui/lab";
 import { dispatch } from "../../redux/store";
 import { openAlert } from "../../redux/actions/alertActions";
 import { validate } from "email-validator";
+import { signUp } from "../../redux/actions/userActions";
+
 interface Props {
   switchPage: () => void;
 }
@@ -31,7 +33,7 @@ const SignUp: React.FC<Props> = ({ switchPage }) => {
     if (password !== confirmPassword) {
       dispatch(openAlert("info", "Passwords do not match"));
     }
-    console.log(name, email, password, confirmPassword);
+    signUp(name, email, password);
   };
 
   return (

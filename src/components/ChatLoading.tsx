@@ -1,31 +1,40 @@
 import React from "react";
 import styled from "styled-components";
-
+import { Box } from "@mui/material";
 const ChatLoading: React.FC = () => {
   return (
     <Div>
-      <div className="loader">
-        <div className="box box-1">
-          <div className="side-left"></div>
-          <div className="side-right"></div>
-          <div className="side-top"></div>
+      <Box
+        sx={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+        }}
+      >
+        <div className="loader">
+          <div className="box box-1">
+            <div className="side-left"></div>
+            <div className="side-right"></div>
+            <div className="side-top"></div>
+          </div>
+          <div className="box box-2">
+            <div className="side-left"></div>
+            <div className="side-right"></div>
+            <div className="side-top"></div>
+          </div>
+          <div className="box box-3">
+            <div className="side-left"></div>
+            <div className="side-right"></div>
+            <div className="side-top"></div>
+          </div>
+          <div className="box box-4">
+            <div className="side-left"></div>
+            <div className="side-right"></div>
+            <div className="side-top"></div>
+          </div>
         </div>
-        <div className="box box-2">
-          <div className="side-left"></div>
-          <div className="side-right"></div>
-          <div className="side-top"></div>
-        </div>
-        <div className="box box-3">
-          <div className="side-left"></div>
-          <div className="side-right"></div>
-          <div className="side-top"></div>
-        </div>
-        <div className="box box-4">
-          <div className="side-left"></div>
-          <div className="side-right"></div>
-          <div className="side-top"></div>
-        </div>
-      </div>
+      </Box>
     </Div>
   );
 };

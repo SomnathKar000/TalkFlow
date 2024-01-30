@@ -4,30 +4,31 @@ import {
   ALERT_OPEN,
 } from "../actions/alertActions";
 
-export type AlerTtype = "error" | "info" | "success" | "warning";
+export type AlertType = "error" | "info" | "success" | "warning";
 
 export interface AlertState {
   open: boolean;
-  type: AlerTtype;
+  type: AlertType;
   message: string;
 }
 
-const initialState: AlertState = {
+export const initialAlertState: AlertState = {
   open: false,
   type: "info",
   message: "",
 };
 
 export const alertReducer = (
-  state: AlertState = initialState,
+  state = initialAlertState,
   action: AlertActionTypes
 ): AlertState => {
   if (action.type === ALERT_OPEN) {
-    return {
+    const newAlert: AlertState = {
       open: true,
       type: action.payload.type,
       message: action.payload.message,
     };
+    return { ...state, ...newAlert };
   } else if (action.type === ALERT_CLOSE) {
     return { ...state, open: false };
   } else return state;

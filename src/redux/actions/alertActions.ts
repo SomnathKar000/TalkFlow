@@ -1,5 +1,5 @@
 import { Action } from "redux";
-import { AlerTtype } from "../reducers/alertReducers";
+import { AlertType } from "../reducers/alertReducers";
 
 export const ALERT_OPEN = "ALERT_OPEN";
 export const ALERT_CLOSE = "ALERT_CLOSE";
@@ -7,7 +7,7 @@ export const ALERT_CLOSE = "ALERT_CLOSE";
 interface OpenAlertAction extends Action<typeof ALERT_OPEN> {
   type: typeof ALERT_OPEN;
   payload: {
-    type: AlerTtype;
+    type: AlertType;
     message: string;
   };
 }
@@ -18,7 +18,7 @@ interface CloseAlertAction extends Action<typeof ALERT_CLOSE> {
 export type AlertActionTypes = OpenAlertAction | CloseAlertAction;
 
 export const openAlert = (
-  type: AlerTtype,
+  type: AlertType,
   message: string
 ): OpenAlertAction => {
   return {
@@ -29,8 +29,4 @@ export const openAlert = (
     },
   };
 };
-export const closeAlert = (): CloseAlertAction => {
-  return {
-    type: ALERT_CLOSE,
-  };
-};
+export const closeAlert = (): CloseAlertAction => ({ type: ALERT_CLOSE });

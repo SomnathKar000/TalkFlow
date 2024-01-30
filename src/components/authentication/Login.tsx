@@ -4,6 +4,7 @@ import { LoadingButton } from "@mui/lab";
 import { dispatch } from "../../redux/store";
 import { openAlert } from "../../redux/actions/alertActions";
 import { validate } from "email-validator";
+import { loginUser } from "../../redux/actions/userActions";
 
 interface Props {
   switchPage: () => void;
@@ -22,7 +23,7 @@ const Login: React.FC<Props> = ({ switchPage }) => {
     if (password.length < 5) {
       dispatch(openAlert("info", "Enter a valid password"));
     }
-    console.log(email, password);
+    loginUser(email, password);
   };
   return (
     <Box>
