@@ -4,11 +4,14 @@ import NavBar from "./components/NavBar";
 import Alert from "./components/Alert";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootReducer } from "./redux/store";
 
 function App() {
+  const mode = useSelector((state: RootReducer) => state.theme.mode);
   const theme = createTheme({
     palette: {
-      mode: "dark",
+      mode,
     },
   });
   return (

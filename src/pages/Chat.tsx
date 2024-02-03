@@ -1,8 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Grid, Container } from "@mui/material";
+import { Grid } from "@mui/material";
 import { getUserData } from "../redux/actions/userActions";
+import { getAllConversations } from "../redux/actions/chatActions";
 import ChatBox from "../components/ChatBox";
 import ChatList from "../components/ChatList";
 import Loading from "../components/ChatLoading";
@@ -16,36 +17,35 @@ const Chat: React.FC = () => {
   React.useEffect(() => {
     if (token) {
       getUserData();
+      getAllConversations();
     } else navigate("/");
   }, [token, navigate]);
 
   if (userState.loading) return <Loading />;
   return (
     <div>
-      <Container maxWidth="xl">
-        <Grid container gap={2}>
-          <Grid
-            sx={{
-              overflowY: "auto",
-              height: "100vh",
-            }}
-            item
-            xs={3}
-          >
-            <ChatList />
-          </Grid>
-          <Grid
-            sx={{
-              overflowY: "auto",
-              height: "100vh",
-            }}
-            item
-            xs={7}
-          >
-            <ChatBox />
-          </Grid>
+      <Grid container>
+        <Grid
+          sx={{
+            overflowY: "auto",
+            height: "100vh",
+          }}
+          item
+          xs={3}
+        >
+          <ChatList />
         </Grid>
-      </Container>
+        <Grid
+          sx={{
+            overflowY: "auto",
+            height: "100vh",
+          }}
+          item
+          xs={9}
+        >
+          <ChatBox />
+        </Grid>
+      </Grid>
     </div>
   );
 };

@@ -7,40 +7,35 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
+import LogoutIcon from "@mui/icons-material/Logout";
 import { Link } from "react-router-dom";
+import NightsStayIcon from "@mui/icons-material/NightsStay";
+import WbSunnyIcon from "@mui/icons-material/WbSunny";
+import { changeTheme } from "../redux/actions/themeActions";
+import { RootReducer } from "../redux/store";
+import { useDispatch, useSelector } from "react-redux";
 
-const pages = [["Chats", "/chats"]];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const pages: string[][] = [["Home", "/"]];
 
 const NavBar: React.FC = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null
-  );
-
+  const dispatch = useDispatch();
+  const { mode } = useSelector((state: RootReducer) => state.theme);
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
   };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ marginBottom: 0.1 }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
@@ -128,13 +123,6 @@ const NavBar: React.FC = () => {
             sx={{ flexGrow: 1, gap: 2, display: { xs: "none", md: "flex" } }}
           >
             {pages.map((page) => (
-              // <Button
-              //   key={page}
-              //   onClick={handleCloseNavMenu}
-              //   sx={{ my: 2, color: "white", display: "block" }}
-              // >
-              //   {page}
-              // </Button>
               <Link
                 key={page[0]}
                 style={{ textDecoration: "none", color: "inherit" }}
@@ -144,35 +132,25 @@ const NavBar: React.FC = () => {
               </Link>
             ))}
           </Box>
-
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+          <Box flexGrow={0} mr={3}>
+            <Tooltip
+              title={`Enable ${mode === "dark" ? "Light" : "Dark"} Mode`}
+            >
+              <IconButton
+                sx={{ color: "white" }}
+                onClick={() => dispatch(changeTheme())}
+              >
+                {mode === "dark" ? <WbSunnyIcon /> : <NightsStayIcon />}
               </IconButton>
             </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
+          </Box>
+
+          <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="Logout">
+              <IconButton sx={{ color: "white" }}>
+                <LogoutIcon />
+              </IconButton>
+            </Tooltip>
           </Box>
         </Toolbar>
       </Container>

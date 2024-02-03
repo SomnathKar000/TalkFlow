@@ -6,7 +6,7 @@ export interface ThemeState {
 }
 
 const inisialState: ThemeState = {
-  mode: "light",
+  mode: "dark",
 };
 
 export const themeReducer = (

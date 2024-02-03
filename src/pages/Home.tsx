@@ -6,6 +6,7 @@ import Login from "../components/authentication/Login";
 import { getUserData } from "../redux/actions/userActions";
 import Loading from "../components/ChatLoading";
 import { RootReducer } from "../redux/store";
+import { getAllConversations } from "../redux/actions/chatActions";
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ const Home: React.FC = () => {
   React.useEffect(() => {
     if (token) {
       getUserData();
+      getAllConversations();
       navigate("/chats");
     }
   }, [token, navigate]);
