@@ -25,3 +25,4 @@ const rootReducer = combineReducers({
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));
 export const dispatch = store.dispatch;
+export const getState = store.getState;

@@ -1,21 +1,24 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import {
   ListItemButton,
   ListItemAvatar,
   ListItemText,
   Avatar,
 } from "@mui/material";
+import { selectConversation } from "../redux/actions/chatActions";
 
 interface Props {
-  id: number;
+  id: string;
   name: string;
-  message: string;
+  message: string | undefined;
 }
 
 const ChatListUser: React.FC<Props> = ({ id, name, message }) => {
+  const dispatch = useDispatch();
   return (
     <React.Fragment key={id}>
-      <ListItemButton>
+      <ListItemButton onClick={() => dispatch(selectConversation(id))}>
         <ListItemAvatar>
           <Avatar />
         </ListItemAvatar>

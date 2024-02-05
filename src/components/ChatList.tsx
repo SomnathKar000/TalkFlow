@@ -3,9 +3,13 @@ import List from "@mui/material/List";
 import Container from "@mui/material/Container";
 import ChatListUser from "./ChatListUser";
 import ChatListNavBar from "./ChatListNavBar";
-import { randomMessages } from "../helpers/constants/backend";
+import { useSelector } from "react-redux";
+import { RootReducer } from "../redux/store";
 
 const ChatList: React.FC = () => {
+  const conversations = useSelector(
+    (state: RootReducer) => state.chat.conversations
+  );
   return (
     <div>
       <ChatListNavBar />
@@ -13,11 +17,18 @@ const ChatList: React.FC = () => {
         <List
           sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
         >
-          {randomMessages.map(({ id, name, message }) => {
-            return (
-              <ChatListUser key={id} id={id} name={name} message={message} />
-            );
-          })}
+          {conversations.map(
+            ({ conversationId, conversationName, latestMessage }) => {
+              return (
+                <ChatListUser
+                  key={conversationId}
+                  id={conversationId}
+                  name={conversationName}
+                  message={latestMessage}
+                />
+              );
+            }
+          )}
         </List>
       </Container>
     </div>
