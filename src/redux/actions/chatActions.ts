@@ -34,7 +34,11 @@ interface SelectConversation extends Action<typeof SELECT_CONVERSATION> {
   };
 }
 
-export type ChatActionTypes = GetALlConversations | StartLoading | EndLoading|SelectConversation;
+export type ChatActionTypes =
+  | GetALlConversations
+  | StartLoading
+  | EndLoading
+  | SelectConversation;
 
 export const startLoading = (): StartLoading => {
   return {
@@ -47,16 +51,14 @@ export const endLoading = (): EndLoading => {
   };
 };
 
-export const selectConversation = (
-  conversationId: string
-)=>{
+export const selectConversation = (conversationId: string) => {
   return {
     type: SELECT_CONVERSATION,
     payload: {
-      conversationId
-    }
-  }
-}
+      conversationId,
+    },
+  };
+};
 
 export const getAllConversations = async () => {
   dispatch(startLoading());
@@ -83,5 +85,28 @@ export const getAllConversations = async () => {
     });
   } catch (error) {
     dispatch(endLoading());
+    dispatch(openAlert("error", "Something went wrong while fetching data"));
+  }
+};
+
+export const sentMessage = async (message: string) => {
+  dispatch(startLoading());
+  const token = localStorage.getItem("token")!;
+  try {
+    const response = await axios.post(
+      `${getSingleOrMultipleMessagesAPI}/${
+        getState().chat.selectedChat?.conversationId
+      }`,
+      {
+        message,
+        Headers: {
+          "auth-token": token,
+        },
+      }
+    );
+    console.log(response.data);
+  } catch (error) {
+    dispatch(endLoading());
+    dispatch(openAlert("error", "Something went wrong while sending message"));
   }
 };
