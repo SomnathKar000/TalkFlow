@@ -66,6 +66,7 @@ export const getAllConversations = async () => {
   if (!token) {
     dispatch(openAlert("error", "Token doesn't exist"));
     dispatch(endLoading());
+
     return;
   }
   try {
