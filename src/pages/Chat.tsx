@@ -28,21 +28,14 @@ const Chat: React.FC = () => {
         <Grid
           sx={{
             overflowY: "auto",
-            height: "100vh",
+            height: "90vh",
           }}
           item
           xs={3}
         >
           <ChatList />
         </Grid>
-        <Grid
-          sx={{
-            overflowY: "auto",
-            height: "100vh",
-          }}
-          item
-          xs={9}
-        >
+        <Grid item xs={9}>
           <ChatBox />
         </Grid>
       </Grid>

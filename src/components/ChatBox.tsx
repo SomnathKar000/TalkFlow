@@ -2,6 +2,7 @@ import React from "react";
 import ChatBoxNavBar from "./ChatBoxNavBar";
 import ChatBoxInput from "./ChatBoxInput";
 import ChatBoxMessage from "./ChatBoxMessage";
+import { Box } from "@mui/material";
 import { useSelector } from "react-redux";
 import { RootReducer } from "../redux/store";
 
@@ -10,9 +11,16 @@ const ChatBox: React.FC = () => {
     (state: RootReducer) => state.chat.selectedChat
   );
   return (
-    <div>
-      <ChatBoxNavBar />
-      <div>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <Box>
+        <ChatBoxNavBar />
+      </Box>
+      <Box sx={{ overflowY: "scroll", height: "75vh" }}>
         {selectedChat?.Messages?.map((message) => (
           <ChatBoxMessage
             key={message.messageId}
@@ -21,9 +29,9 @@ const ChatBox: React.FC = () => {
             date={message.date}
           />
         ))}
-      </div>
+      </Box>
       <ChatBoxInput />
-    </div>
+    </Box>
   );
 };
 

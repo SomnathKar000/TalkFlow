@@ -4,12 +4,14 @@ import { dispatch, getState } from "../store";
 import { UserState } from "../reducers/userReducers";
 import { openAlert } from "./alertActions";
 import { getSingleOrMultipleMessagesAPI } from "../../helpers/services/messageApis";
+import { ChatMessage } from "../reducers/chatReducers";
 
 export const SET_CONVERSATION = "SET_CONVERSATION";
 export const GET_ALL_CONVERSATIONS = "GET_ALL_CONVERSATIONS";
 export const SELECT_CONVERSATION = "SELECT_CONVERSATION";
 export const START_LOADING = "START_LOADING";
 export const END_LOADING = "END_LOADING";
+export const SENT_MESSAGE = "SENT_MESSAGE";
 
 interface GetALlConversations extends Action<typeof GET_ALL_CONVERSATIONS> {
   type: typeof GET_ALL_CONVERSATIONS;
@@ -34,11 +36,20 @@ interface SelectConversation extends Action<typeof SELECT_CONVERSATION> {
   };
 }
 
+interface SentMessage extends Action<typeof SENT_MESSAGE> {
+  type: typeof SENT_MESSAGE;
+  payload: {
+    message: ChatMessage;
+    conversationId: string;
+  };
+}
+
 export type ChatActionTypes =
   | GetALlConversations
   | StartLoading
   | EndLoading
-  | SelectConversation;
+  | SelectConversation
+  | SentMessage;
 
 export const startLoading = (): StartLoading => {
   return {
@@ -86,18 +97,19 @@ export const getAllConversations = async () => {
     });
   } catch (error) {
     dispatch(endLoading());
-    dispatch(openAlert("error", "Something went wrong while fetching data"));
+    dispatch(
+      openAlert("error", "Something went wrong while fetching Chat data")
+    );
   }
 };
 
 export const sentMessage = async (message: string) => {
   dispatch(startLoading());
   const token = localStorage.getItem("token")!;
+  const conversationId = getState().chat.selectedChat!.conversationId;
   try {
     const response = await axios.post(
-      `${getSingleOrMultipleMessagesAPI}/${
-        getState().chat.selectedChat?.conversationId
-      }`,
+      `${getSingleOrMultipleMessagesAPI}/${conversationId}`,
       {
         message,
         Headers: {
@@ -105,7 +117,14 @@ export const sentMessage = async (message: string) => {
         },
       }
     );
-    console.log(response.data);
+    dispatch({
+      type: SENT_MESSAGE,
+      payload: {
+        conversationId,
+        message: response.data.messageData,
+      },
+    });
+    dispatch(endLoading());
   } catch (error) {
     dispatch(endLoading());
     dispatch(openAlert("error", "Something went wrong while sending message"));

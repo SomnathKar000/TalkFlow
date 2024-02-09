@@ -4,6 +4,7 @@ import {
   END_LOADING,
   GET_ALL_CONVERSATIONS,
   SELECT_CONVERSATION,
+  SENT_MESSAGE,
 } from "../actions/chatActions";
 
 export interface ChatMessage {
@@ -91,5 +92,9 @@ export const chatReducer = (
     );
     if (!conversation) return state;
     return { ...state, selectedChat: conversation };
+  } else if (action.type === SENT_MESSAGE) {
+    return {
+      ...state,
+    };
   } else return state;
 };
