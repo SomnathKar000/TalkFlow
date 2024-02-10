@@ -104,29 +104,35 @@ export const getAllConversations = async () => {
 };
 
 export const sentMessage = async (message: string) => {
-  dispatch(startLoading());
-  const token = localStorage.getItem("token")!;
-  const conversationId = getState().chat.selectedChat!.conversationId;
+  const token = localStorage.getItem("token");
+  const currentChat = getState().chat.selectedChat;
+  if (!currentChat) {
+    dispatch(openAlert("info", "Select the chat"));
+    return;
+  }
   try {
     const response = await axios.post(
-      `${getSingleOrMultipleMessagesAPI}/${conversationId}`,
+      `${getSingleOrMultipleMessagesAPI}/${currentChat.conversationId}`,
       {
         message,
-        Headers: {
+      },
+      {
+        headers: {
           "auth-token": token,
         },
       }
     );
+    dispatch(openAlert("success", response.data.message));
     dispatch({
       type: SENT_MESSAGE,
       payload: {
-        conversationId,
+        conversationId: currentChat.conversationId,
         message: response.data.messageData,
       },
     });
-    dispatch(endLoading());
   } catch (error) {
-    dispatch(endLoading());
+    console.log(error);
+
     dispatch(openAlert("error", "Something went wrong while sending message"));
   }
 };

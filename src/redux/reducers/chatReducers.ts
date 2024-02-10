@@ -37,12 +37,14 @@ export interface ChatState {
   conversations: ChatStateConversation[];
   chatLoading: boolean;
   selectedChat: ChatStateConversation | null;
+  sentMessageLoading: boolean;
 }
 
 export const initialChatState: ChatState = {
   conversations: [],
   chatLoading: false,
   selectedChat: null,
+  sentMessageLoading: false,
 };
 
 export const chatReducer = (
@@ -95,6 +97,24 @@ export const chatReducer = (
   } else if (action.type === SENT_MESSAGE) {
     return {
       ...state,
+      selectedChat: state.selectedChat
+        ? {
+            ...state.selectedChat,
+            Messages: state.selectedChat.Messages
+              ? [...state.selectedChat.Messages, action.payload.message]
+              : undefined,
+          }
+        : null,
+      conversations: [
+        ...state.conversations.map((conversation) => {
+          if (conversation.conversationId === action.payload.conversationId) {
+            if (conversation.Messages) {
+              conversation.Messages.push(action.payload.message);
+            }
+          }
+          return conversation;
+        }),
+      ],
     };
   } else return state;
 };

@@ -7,9 +7,7 @@ import { useSelector } from "react-redux";
 import { RootReducer } from "../redux/store";
 
 const ChatBox: React.FC = () => {
-  const selectedChat = useSelector(
-    (state: RootReducer) => state.chat.selectedChat
-  );
+  const { selectedChat } = useSelector((state: RootReducer) => state.chat);
   return (
     <Box
       sx={{
@@ -30,6 +28,7 @@ const ChatBox: React.FC = () => {
           />
         ))}
       </Box>
+
       <ChatBoxInput />
     </Box>
   );
