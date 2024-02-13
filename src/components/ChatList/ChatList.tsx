@@ -4,7 +4,7 @@ import Container from "@mui/material/Container";
 import ChatListUser from "./ChatListUser";
 import ChatListNavBar from "./ChatListNavBar";
 import { useSelector } from "react-redux";
-import { RootReducer } from "../redux/store";
+import { RootReducer } from "../../redux/store";
 
 const ChatList: React.FC = () => {
   const conversations = useSelector(

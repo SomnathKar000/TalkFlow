@@ -1,7 +1,7 @@
 import HomePage from "./pages/Home";
 import ChatPage from "./pages/Chat";
-import NavBar from "./components/NavBar";
-import Alert from "./components/Alert";
+import NavBar from "./components/Navigation/NavBar";
+import Alert from "./components/FeedBack/Alert";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";

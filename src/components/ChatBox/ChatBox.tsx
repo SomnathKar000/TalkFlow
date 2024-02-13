@@ -4,7 +4,7 @@ import ChatBoxInput from "./ChatBoxInput";
 import ChatBoxMessage from "./ChatBoxMessage";
 import { Box } from "@mui/material";
 import { useSelector } from "react-redux";
-import { RootReducer } from "../redux/store";
+import { RootReducer } from "../../redux/store";
 
 const ChatBox: React.FC = () => {
   const { selectedChat } = useSelector((state: RootReducer) => state.chat);

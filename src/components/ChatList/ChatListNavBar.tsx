@@ -1,7 +1,7 @@
 import React from "react";
 import { AppBar, Box, Typography, Tooltip, IconButton } from "@mui/material";
 import LaunchIcon from "@mui/icons-material/Launch";
-import ChatMenuItem from "./ChatMenuItem";
+import ChatMenuItem from "../Navigation/ChatMenuItem";
 
 const ChatListNavBar: React.FC = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);

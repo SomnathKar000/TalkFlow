@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, TextField, Button } from "@mui/material";
-import { sentMessage } from "../redux/actions/chatActions";
+import { sentMessage } from "../../redux/actions/chatActions";
 
 const ChatBoxInput: React.FC = () => {
   const [message, setMessage] = React.useState("");

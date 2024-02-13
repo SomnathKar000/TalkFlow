@@ -6,7 +6,7 @@ import {
   ListItemText,
   Avatar,
 } from "@mui/material";
-import { selectConversation } from "../redux/actions/chatActions";
+import { selectConversation } from "../../redux/actions/chatActions";
 
 interface Props {
   id: string;

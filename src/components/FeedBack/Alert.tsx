@@ -2,8 +2,8 @@ import React from "react";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import { useSelector, useDispatch } from "react-redux";
-import { closeAlert } from "../redux/actions/alertActions";
-import { RootReducer } from "../redux/store";
+import { closeAlert } from "../../redux/actions/alertActions";
+import { RootReducer } from "../../redux/store";
 
 const AlertComponent: React.FC = () => {
   const dispatch = useDispatch();

@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { Grid } from "@mui/material";
 import { getUserData } from "../redux/actions/userActions";
 import { getAllConversations } from "../redux/actions/chatActions";
-import ChatBox from "../components/ChatBox";
-import ChatList from "../components/ChatList";
-import Loading from "../components/ChatLoading";
+import ChatBox from "../components/ChatBox/ChatBox";
+import ChatList from "../components/ChatList/ChatList";
+import Loading from "../components/FeedBack/ChatLoading";
 import { RootReducer } from "../redux/store";
 
 const Chat: React.FC = () => {

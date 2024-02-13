@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import SignUp from "../components/authentication/SignUp";
 import Login from "../components/authentication/Login";
 import { getUserData } from "../redux/actions/userActions";
-import Loading from "../components/ChatLoading";
+import Loading from "../components/FeedBack/ChatLoading";
 import { RootReducer } from "../redux/store";
 import { getAllConversations } from "../redux/actions/chatActions";
 

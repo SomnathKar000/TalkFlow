@@ -14,8 +14,8 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { Link } from "react-router-dom";
 import NightsStayIcon from "@mui/icons-material/NightsStay";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
-import { changeTheme } from "../redux/actions/themeActions";
-import { RootReducer } from "../redux/store";
+import { changeTheme } from "../../redux/actions/themeActions";
+import { RootReducer } from "../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
 
 const pages: string[][] = [["Home", "/"]];
