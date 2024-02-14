@@ -30,7 +30,7 @@ export interface ConversationMember {
 }
 export interface ChatStateConversation extends ConversationState {
   Messages?: ChatMessage[];
-  ConversationMembers?: ConversationMember[];
+  ConversationMembers: ConversationMember[];
 }
 
 export interface ChatState {
@@ -62,7 +62,7 @@ export const chatReducer = (
       chatLoading: false,
     };
   } else if (action.type === GET_ALL_CONVERSATIONS) {
-    const conversations: ConversationState[] = (
+    const conversations: ChatStateConversation[] = (
       action.payload.conversations as ChatStateConversation[]
     ).map((element) => {
       const conversation: ChatStateConversation = {
@@ -77,10 +77,10 @@ export const chatReducer = (
         groupAdmin: element.groupAdmin,
         createdAt: element.createdAt,
         Messages: element.Messages,
-        ConversationMembers: element.ConversationMembers?.map((e) => {
+        ConversationMembers: element.ConversationMembers.map((e) => {
           const member: ConversationMember = {
-            userName: e?.userName,
-            emailId: e?.emailId,
+            userName: e.userName,
+            emailId: e.emailId,
           };
           return member;
         }),
